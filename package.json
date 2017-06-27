@@ -1,0 +1,30 @@
+{
+  "name": "fe-sea-battle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf build && webpack",
+    "start": "rimraf build && webpack-dev-server --inline"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cat-holding/fe-sea-battle.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cat-holding/fe-sea-battle/issues"
+  },
+  "homepage": "https://github.com/cat-holding/fe-sea-battle#readme",
+  "devDependencies": {
+    "babel-core": "6.25.0",
+    "babel-loader": "7.1.0",
+    "babel-preset-es2015": "6.24.1",
+    "html-webpack-plugin": "2.29.0",
+    "rimraf": "2.6.1",
+    "webpack": "3.0.0",
+    "webpack-dev-server": "2.5.0"
+  }
+}
