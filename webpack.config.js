@@ -51,7 +51,8 @@ const config = {
     },
     context: __dirname,
     plugins: [new HtmlWebpackPlugin({
-        title: "sea-battle"
+        title: "sea-battle",
+        template: 'client/template.html'
     })],
     devtool: "eval-source-map"
 };
