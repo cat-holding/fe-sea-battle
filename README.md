@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/cat-holding/fe-sea-battle.svg?branch=master)](https://travis-ci.org/cat-holding/fe-sea-battle)
