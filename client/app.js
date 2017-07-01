@@ -1,4 +1,3 @@
-// import Ship from './Ship';
 import MapSea from './MapSea';
 
 const map = new MapSea('sea', 10, 30);
@@ -19,5 +18,4 @@ console.log('map.getCurrentShip()', map.getCurrentShip());
 
 console.log('map.renderGrid()', map.renderGrid());
 console.log('map.renderShips()', map.renderShips());
-// console.log(test, Ship({ x: 0, y: 1 }, { x: 0, y: 2 }, 'red'));
 

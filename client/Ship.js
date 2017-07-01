@@ -1,4 +1,6 @@
-const Ship = (posStart, posEnd, color = '#2f4f4f') => {
+import { settings } from './storage';
+
+const Ship = (posStart, posEnd, color = settings.color.ship) => {
   const cells = [];
   const sizeX = Math.abs(posStart.x - posEnd.x);
   const sizeY = Math.abs(posStart.y - posEnd.y);
