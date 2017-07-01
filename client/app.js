@@ -18,4 +18,8 @@ console.log('map.getCurrentShip()', map.getCurrentShip());
 
 console.log('map.renderGrid()', map.renderGrid());
 console.log('map.renderShips()', map.renderShips());
+console.log('map.renderInactiveCell(2, 3, \'red\')', map.renderInactiveCell(2, 3, 'red'));
+console.log('map.renderInactiveCell(3, 3, \'red\')', map.renderInactiveCell(3, 3, 'red'));
+console.log('map.renderInactiveCell(4, 3)', map.renderInactiveCell(4, 4));
+console.log('map.renderInactiveCell(5, 3)', map.renderInactiveCell(5, 4));
 
