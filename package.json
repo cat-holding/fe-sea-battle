@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf build && webpack",
-    "start": "rimraf build && webpack-dev-server --inline",
+    "start": "rimraf build && webpack-dev-server -d --inline",
     "lint": "eslint --ext .js ./"
   },
   "repository": {
