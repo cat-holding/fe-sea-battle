@@ -14,6 +14,8 @@ const settings = {
     grid: 10,
     // Cell size in pixels by default
     cell: 40,
+    // Interval between lines on the background of an inactive cell
+    lineSpacingInactiveCell: 5,
   },
 };
 

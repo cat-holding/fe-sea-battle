@@ -213,6 +213,30 @@ class MapSea {
       return false;
     });
   }
+
+  renderInactiveCell(x, y, color = settings.color.inactiveCell) {
+    const _x = x * this._cellSize;
+    const _y = y * this._cellSize;
+    // Set the canvas area for drawing
+    this._context.save();
+    this._context.beginPath();
+    this._context.rect(_x, _y, this._cellSize, this._cellSize);
+    this._context.closePath();
+    this._context.clip();
+    // Draw diagonal lines
+    this._context.beginPath();
+    for (let i = _y - this._cellSize;
+      i < _y + this._cellSize;
+      i += settings.size.lineSpacingInactiveCell) {
+      this._context.moveTo(_x, i);
+      this._context.lineTo(_x + this._cellSize, i + this._cellSize);
+    }
+    this._context.lineWidth = 1;
+    this._context.strokeStyle = color;
+    this._context.closePath();
+    this._context.stroke();
+    this._context.restore();
+  }
 }
 
 export default MapSea;
