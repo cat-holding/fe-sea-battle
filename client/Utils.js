@@ -58,7 +58,7 @@ class Utils {
     }
 
     for (let i = 0; i < lines; i++) {
-      resultArr.push(arr);
+      resultArr.push(arr.slice());
     }
 
     return lines > 1 ? resultArr : arr;
