@@ -23,8 +23,68 @@ class MapSea {
     this._gridSize = gridSize;
     this._cellSize = cellSize;
     this._context = this.$canvas.getContext('2d');
+    const ns = this;
+    const _enemySea = Utils.createArray(0, gridSize, gridSize);
     this._ships = [];
     this._currentShip = null;
+
+    this.enemyMap = {
+      _setCellMap(x, y, value) {
+        if (!Utils.isCorrectCoordinate(y, gridSize)) {
+          throw new Error('Incorrect value of the variable "x"!');
+        }
+
+        if (!Utils.isCorrectCoordinate(y, gridSize)) {
+          throw new Error('Incorrect value of the variable "y"!');
+        }
+
+        if (!(value === 0 || value === 1 || value === 2)) {
+          throw new Error('Incorrect value of the variable "value"!');
+        }
+
+        if (this.getMap()[y][x] === 0) {
+          _enemySea[y][x] = value;
+        }
+      },
+
+      getMap() {
+        return _enemySea;
+      },
+
+
+      setInactiveCell(x, y) {
+        this._setCellMap(x, y, 1);
+      },
+
+      setInactiveCellShip(x, y) {
+        this._setCellMap(x, y, 2);
+      },
+
+      setInactiveSpaceShip(startPos, endPos) {
+        const startX = startPos.x - 1 < 0 ? 0 : startPos.x - 1;
+        const startY = startPos.y - 1 < 0 ? 0 : startPos.y - 1;
+        const endX = endPos.x + 1 > gridSize ? gridSize : endPos.x + 1;
+        const endY = endPos.y + 1 > gridSize ? gridSize : endPos.y + 1;
+
+        for (let i = startX; i <= endX; i++) {
+          for (let j = startY; j <= endY; j++) {
+            this._setCellMap(i, j, 1);
+          }
+        }
+      },
+
+      renderEnemySea() {
+        this.getMap().forEach((elY, y) => {
+          elY.forEach((value, x) => {
+            if (value === 1) {
+              ns.renderInactiveCell(x, y, settings.color.inactiveCell);
+            } else if (value === 2) {
+              ns.renderInactiveCell(x, y, settings.color.destroyedShip);
+            }
+          });
+        });
+      },
+    };
   }
 
   getCanvas() {
