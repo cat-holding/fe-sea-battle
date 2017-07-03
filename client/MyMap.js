@@ -44,6 +44,19 @@ class MyMap extends Canvas {
     return state;
   }
 
+  /**
+   * Places the ship in the preview area
+   *
+   * @param {Number} x Horizontal coordinate
+   * @param {Number} y Vertical coordinate
+   * @param {Number} size The size of the ship
+   * @param {String} orientation It can take the values of "VERTICAL" and "HORIZONTAL".
+   * @param {String} color The color of the ship
+   * @returns {Number|Boolean} Returns the size of the ship upon removal,
+   * the "TRUE" if the ship was added and a "FALSE" in case of an error.
+   *
+   * @memberOf MyMap
+   */
   setCurrentShip(x, y, size, orientation, color) {
     if (!(Utils.isCorrectCoordinate(y, this._gridSize) || x === null)) {
       throw new Error('Incorrect value of the variable "x"!');
@@ -100,6 +113,13 @@ class MyMap extends Canvas {
     return false;
   }
 
+  /**
+   * Places the ship on the map from the preview area
+   *
+   * @returns {Boolean} The "TRUE" is if the ship was added
+   *
+   * @memberOf MyMap
+   */
   addShipToMap() {
     if (
       typeof this._currentShip === 'object' &&
@@ -115,6 +135,15 @@ class MyMap extends Canvas {
     return false;
   }
 
+  /**
+   * Marks the ship's cell as destroyed
+   *
+   * @param {Number} x Horizontal coordinate
+   * @param {Number} y Vertical coordinate
+   * @returns {Boolean} If the cell has been marked, it returns true
+   *
+   * @memberOf MyMap
+   */
   attackCell(x, y) {
     if (!Utils.isCorrectCoordinate(x, this._gridSize)) {
       throw new Error('Incorrect value of the variable "x"!');
@@ -140,6 +169,11 @@ class MyMap extends Canvas {
     );
   }
 
+  /**
+   * Draws a map
+   *
+   * @memberOf MyMap
+   */
   renderCanvas() {
     super.renderCanvas();
 
