@@ -62,7 +62,7 @@ class EnemyMap extends Canvas {
    *
    * @param {Number} x Horizontal coordinate
    * @param {Number} y Vertical coordinate
-   * 
+   *
    * @memberOf EnemyMap
    */
   setInactiveCellShip(x, y) {
