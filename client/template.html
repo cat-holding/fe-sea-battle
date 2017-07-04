@@ -21,12 +21,20 @@
       flex-direction: row;
       align-items: center;
       flex-wrap: wrap;
+      background: #eee;
+    }
+
+    .page{
+      padding: 40px;
+      background: #fff;
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+      border-radius: 5px;
+      
+      align-self: flex-start;
     }
 
     canvas {
       border: solid 1px #ccc;
-      align-self: flex-start;
-      /*margin: 5px;*/
     }
 
     .top-menu {
@@ -57,7 +65,9 @@
     <div class="block-ship"></div>
     <div class="block-ship"></div>
   </div>
-  <canvas id="sea"></canvas>
+  <div class="page">
+    <canvas id="sea"></canvas>
+  </div>
 </body>
 
 </html>
