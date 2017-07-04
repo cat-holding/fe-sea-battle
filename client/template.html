@@ -1,10 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-      <canvas id="sea"></canvas>
-  </body>
+
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <style>
+    body,
+    html {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    canvas {
+      border: solid 1px #ccc;
+      align-self: flex-start;
+      /*margin: 5px;*/
+    }
+
+    .top-menu {
+      width: 100%;
+      height: 50px;
+      background: #f1eaea;
+      border-bottom: solid 1px #d4d4d4;
+      display: flex;
+      align-self: flex-start;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .block-ship {
+      width: 100px;
+      height: 50%;
+      margin: 0 10px;
+      border: 1px dotted #000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-menu">
+    <div class="block-ship"></div>
+    <div class="block-ship"></div>
+    <div class="block-ship"></div>
+    <div class="block-ship"></div>
+    <div class="block-ship"></div>
+  </div>
+  <canvas id="sea"></canvas>
+</body>
+
 </html>

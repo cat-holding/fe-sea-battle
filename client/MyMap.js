@@ -47,7 +47,7 @@ class MyMap extends Canvas {
   /**
    * Places the ship in the preview area
    *
-   * @param {Number} x Horizontal coordinate
+   * @param {Number|Null} x Horizontal coordinate
    * @param {Number} y Vertical coordinate
    * @param {Number} size The size of the ship
    * @param {String} orientation It can take the values of "VERTICAL" and "HORIZONTAL".
@@ -58,7 +58,7 @@ class MyMap extends Canvas {
    * @memberOf MyMap
    */
   setCurrentShip(x, y, size, orientation, color) {
-    if (!(Utils.isCorrectCoordinate(y, this._gridSize) || x === null)) {
+    if (!(Utils.isCorrectCoordinate(x, this._gridSize) || x === null)) {
       throw new Error('Incorrect value of the variable "x"!');
     }
 
@@ -78,7 +78,7 @@ class MyMap extends Canvas {
 
     // If the variable is "null" then delete the currentShip otherwise set currentShip
     if (x === null) {
-      const sizeShip = typeof this._currentShip === 'object' ? this._currentShip.size : 0;
+      const sizeShip = Utils.isObject(this._currentShip) ? this._currentShip.size : 0;
 
       this._currentShip = null;
 
@@ -123,7 +123,7 @@ class MyMap extends Canvas {
   addShipToMap() {
     if (
       typeof this._currentShip === 'object' &&
-      !this._ships.some(ship => !this.isCorrectCoordinate(ship, this._currentShip))
+      !this._ships.some(ship => !MyMap.isAllowableDistance(ship, this._currentShip))
     ) {
       this._ships.push(this._currentShip);
       // Delete current ship
@@ -179,8 +179,13 @@ class MyMap extends Canvas {
 
     this.renderShips(this._ships);
 
-    if (this._currentShip !== null) {
+    if (
+      this._currentShip !== null &&
+      this._ships.some(ship => !MyMap.isAllowableDistance(ship, this._currentShip))
+    ) {
       this.renderShips([this._currentShip], true);
+    } else if (this._currentShip !== null) {
+      this.renderShips([this._currentShip]);
     }
   }
 }

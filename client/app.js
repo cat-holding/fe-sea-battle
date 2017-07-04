@@ -1,45 +1,113 @@
 import EnemyMap from './EnemyMap';
 import MyMap from './MyMap';
-// import MapSea from './MapSea';
+import Utils from './Utils';
+import { VERTICAL, HORIZONTAL, settings } from './storage';
 
-// const map = new MapSea('sea', 10, 30);
-// console.log(map.getCanvas());
-// console.log('map.setCurrentShip(2, 9, 3, \'VERTICAL\')',
-// map.setCurrentShip(2, 9, 3, 'VERTICAL'));
-// console.log('map.getCurrentShip()', map.getCurrentShip());
-// console.log('map.addShipToMap()', map.addShipToMap());
-// console.log('map.getCurrentShip()', map.getCurrentShip());
-// console.log('map.setCurrentShip(9, 8, 3, \'HORIZONTAL\')',
-// map.setCurrentShip(9, 8, 3, 'HORIZONTAL'));
-// console.log('map.getCurrentShip()', map.getCurrentShip());
-// console.log('map.addShipToMap()', map.addShipToMap());
-// console.log('map.getCurrentShip()', map.getCurrentShip());
-// console.log('map.attackCell(8, 2)', map.attackCell(2, 8));
-// console.log('map.setCurrentShip(4, 8, 1, \'HORIZONTAL\')',
-// map.setCurrentShip(4, 8, 1, 'HORIZONTAL'));
-// console.log('map.addShipToMap()', map.addShipToMap());
-// console.log('map.moveShip(4, 8)', map.moveShip(4, 8));
-// console.log('map.getCurrentShip()', map.getCurrentShip());
+const enemyMap = new EnemyMap('sea');
+const myMap = new MyMap('sea');
+const keysShips = Object.keys(settings.game.ships);
 
-// console.log('map.renderGrid()', map.renderGrid());
-// console.log('map.renderShips()', map.renderShips());
-// console.log('map.renderInactiveCell(2, 3, \'red\')', map.renderInactiveCell(2, 3, 'red'));
-// console.log('map.renderInactiveCell(3, 3, \'red\')', map.renderInactiveCell(3, 3, 'red'));
-// console.log('map.renderInactiveCell(4, 3)', map.renderInactiveCell(4, 4));
-// console.log('map.renderInactiveCell(5, 3)', map.renderInactiveCell(5, 4));
+const render = () => {
+  if (settings.game.mapEditor) {
+    myMap.renderCanvas();
+  } else {
+    enemyMap.renderCanvas();
+  }
+};
 
-window.EnemyMap = new EnemyMap('sea', 10, 30);
-const myMap = new MyMap('sea', 10, 30);
+const getPosition = (e) => {
+  const _x = Math.floor((e.pageX - e.currentTarget.offsetLeft) / settings.size.cell);
+  const _y = Math.floor((e.pageY - e.currentTarget.offsetTop) / settings.size.cell);
 
-// const map = new EnemyMap('sea', 10, 30);
-// console.log(map.setInactiveCell(2, 2));
-// console.log(map.setInactiveCell(3, 2));
-// console.log(map.setInactiveCellShip(9, 9));
-// console.log(map.setInactiveSpaceShip({ x: 0, y: 7 }, { x: 4, y: 7 }));
-// console.log(map.renderCanvas());
+  return Utils.isCorrectCoordinates(_x, _y, settings.size.grid) ? { x: _x, y: _y } : false;
+};
 
-console.log(myMap.setCurrentShip(2, 2, 3, 'HORIZONTAL'));
-console.log(myMap.addShipToMap());
+const paint = (e) => {
+  const pos = getPosition(e);
+  // debugger;
+  if (pos !== false && settings.game.mapEditor === true) {
+    if (
+      !(Utils.isNaturalNumberOrZero(settings.game.sizeShip) ||
+        Utils.isNull(settings.game.sizeShip))
+    ) {
+      throw new Error('Incorrect value of the variable "settings.game.sizeShip"!');
+    }
 
-console.log(myMap.renderCanvas());
+    if (
+      settings.game.autoSelect &&
+      settings.game.ships[settings.game.sizeShip] !== 0
+    ) {
+      for (let i = keysShips.length - 1; i >= 0; i--) {
+        if (settings.game.ships[keysShips[i]] > 0) {
+          settings.game.sizeShip = +keysShips[i];
+          break;
+        }
+      }
+    }
 
+    if (settings.game.sizeShip !== null && settings.game.ships[settings.game.sizeShip] !== 0) {
+      myMap.setCurrentShip(
+        pos.x,
+        pos.y,
+        settings.game.sizeShip,
+        settings.game.currShipOrientation,
+      );
+    }
+  }
+
+  render();
+};
+
+const canvasClick = (e) => {
+  const pos = getPosition(e);
+
+  if (pos !== false) {
+    if (settings.game.mapEditor === true) {
+      if (
+        Utils.isNaturalNumberOrZero(settings.game.sizeShip) &&
+        !Utils.isNull(settings.game.sizeShip) &&
+        settings.game.ships[settings.game.sizeShip] !== 0
+      ) {
+        if (myMap.addShipToMap()) {
+          settings.game.ships[settings.game.sizeShip] -= 1;
+          if (settings.game.ships[settings.game.sizeShip] === 0) {
+            settings.game.sizeShip = null;
+          }
+        }
+      } else {
+        throw new Error('Incorrect value of the variable "settings.game.sizeShip"!');
+      }
+    } else {
+      if (true) {
+        enemyMap.setInactiveCell(pos.x, pos.y);
+      } else if (false) {
+        enemyMap.setInactiveCellShip(pos.x, pos.y);
+      } else if (false) {
+        enemyMap.setInactiveSpaceShip();
+      }
+
+      render();
+    }
+  }
+};
+
+const $canvas = document.getElementById('sea');
+
+$canvas.addEventListener('mousemove', paint);
+$canvas.addEventListener('click', canvasClick);
+document.addEventListener('keydown', (e) => {
+  console.log(e.keyCode);
+  switch (e.keyCode) {
+    case 82:
+      settings.game.currShipOrientation = settings.game.currShipOrientation === VERTICAL ?
+        HORIZONTAL : VERTICAL;
+      break;
+    case 69:
+      settings.game.mapEditor = !settings.game.mapEditor;
+      render();
+      break;
+
+    default:
+      break;
+  }
+});

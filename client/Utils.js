@@ -13,6 +13,32 @@ class Utils {
   }
 
   /**
+   * Checks for a match with the Null type
+   *
+   * @static
+   * @param {any} item Input value
+   * @returns {Boolean}
+   *
+   * @memberOf Utils
+   */
+  static isNull(item) {
+    return item === null;
+  }
+
+  /**
+   * Checks for a match with an Object type
+   *
+   * @static
+   * @param {any} item Input value
+   * @returns {Boolean}
+   *
+   * @memberOf Utils
+   */
+  static isObject(item) {
+    return (typeof item === 'object' && !Array.isArray(item) && !this.isNull(item));
+  }
+
+  /**
    * Checks the finding of a number in the grid
    *
    * @static
@@ -23,11 +49,22 @@ class Utils {
    * @memberOf Utils
    */
   static isCorrectCoordinate(value, gridSize) {
-    if (this.isNaturalNumberOrZero(value) && value < gridSize) {
-      return true;
-    }
+    return this.isNaturalNumberOrZero(value) && value < gridSize;
+  }
 
-    return false;
+  /**
+   * Checks the finding of a numbers in the grid
+   *
+   * @static
+   * @param {Number} x Input number (natural or zero)
+   * @param {Number} y Input number (natural or zero)
+   * @param {Number} gridSize The size of the grid
+   * @returns {Boolean}
+   *
+   * @memberOf Utils
+   */
+  static isCorrectCoordinates(x, y, gridSize) {
+    return Utils.isCorrectCoordinate(x, gridSize) && Utils.isCorrectCoordinate(y, gridSize);
   }
 
   /**

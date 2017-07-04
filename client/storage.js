@@ -13,9 +13,21 @@ const settings = {
     // Number of cells by default
     grid: 10,
     // Cell size in pixels by default
-    cell: 40,
+    cell: 30,
     // Interval between lines on the background of an inactive cell
     lineSpacingInactiveCell: 5,
+  },
+  game: {
+    mapEditor: true,
+    autoSelect: true,
+    currShipOrientation: VERTICAL,
+    sizeShip: null,
+    ships: {
+      4: 1,
+      3: 2,
+      2: 3,
+      1: 4,
+    },
   },
 };
 
