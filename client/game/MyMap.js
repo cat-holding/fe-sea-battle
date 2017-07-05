@@ -1,7 +1,7 @@
 import Canvas from './Canvas';
-import Utils from './Utils';
+import Utils from './../Utils';
 import Ship from './Ship';
-import { VERTICAL, HORIZONTAL } from './storage';
+import { VERTICAL, HORIZONTAL } from './../storage';
 
 class MyMap extends Canvas {
   constructor(...args) {

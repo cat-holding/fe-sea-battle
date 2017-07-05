@@ -1,5 +1,5 @@
-import { settings } from './storage';
-import Utils from './Utils';
+import { settings } from './../storage';
+import Utils from './../Utils';
 
 class Canvas {
   constructor(idCanvas = '', gridSize = settings.size.grid, cellSize = settings.size.cell) {

@@ -1,5 +1,6 @@
-import EnemyMap from './EnemyMap';
-import MyMap from './MyMap';
+import io from 'socket.io-client';
+import EnemyMap from './game/EnemyMap';
+import MyMap from './game/MyMap';
 import Utils from './Utils';
 import { VERTICAL, HORIZONTAL, settings } from './storage';
 
@@ -111,3 +112,7 @@ document.addEventListener('keydown', (e) => {
       break;
   }
 });
+
+const socket = io('http://localhost:8000');
+socket.on('status', status => console.log(status));
+socket.emit('setStore', 777);

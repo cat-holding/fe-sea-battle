@@ -1,4 +1,4 @@
-import { settings } from './storage';
+import { settings } from './../storage';
 
 const Ship = (posStart, posEnd, color = settings.color.ship) => {
   const cells = [];

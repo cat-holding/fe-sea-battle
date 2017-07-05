@@ -1,6 +1,6 @@
 import Canvas from './Canvas';
-import Utils from './Utils';
-import { settings } from './storage';
+import Utils from './../Utils';
+import { settings } from './../storage';
 
 class EnemyMap extends Canvas {
   constructor(...args) {
