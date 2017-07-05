@@ -113,6 +113,6 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-const socket = io('http://localhost:8000');
+const socket = io('http://localhost:8080');
 socket.on('status', status => console.log(status));
 socket.emit('setStore', 777);
