@@ -1,7 +1,19 @@
 const path = require('path');
-const app = require('express')();
+const express = require('express');
+
+const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+
+const webpack = require('webpack');
+const webpackMiddleware = require('webpack-dev-middleware');
+const webpackConfig = require('../webpack.config');
+
+if (process.env.NODE_ENV === 'development') {
+  const compiler = webpack(webpackConfig);
+  app.use(webpackMiddleware(compiler, { publicPath: webpackConfig.output.publicPath }));
+}
+app.use(express.static(path.resolve(__dirname, '/client')));
 
 const store = {
   test: 1,
@@ -25,6 +37,6 @@ io.on('connection', (socket) => {
   });
 });
 
-http.listen(8000, () => {
-  console.log('listening on *:8000');
+http.listen(8080, () => {
+  console.log('Server running on http://localhost:8080...');
 });
