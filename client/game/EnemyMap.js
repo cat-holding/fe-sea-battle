@@ -31,7 +31,9 @@ class EnemyMap extends Canvas {
       throw new Error('Incorrect value of the variable "value"!');
     }
 
-    this._enemySea[y][x] = value;
+    if (this._enemySea[y][x] !== 2) {
+      this._enemySea[y][x] = value;
+    }
   }
 
   /**
