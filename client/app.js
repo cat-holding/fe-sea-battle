@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 
 import { renderLoginHTML } from './pages/login';
 import { renderListHTML, refreshList } from './pages/list';
-import { renderGameHTML } from './pages/game';
+import { renderGameHTML, renderMyShipsHTML } from './pages/game';
 
 import { VERTICAL, HORIZONTAL, settings } from './storage';
 
@@ -25,8 +25,8 @@ document.addEventListener('keydown', (e) => {
 });
 
 const socket = io('http://localhost:8080');
-const connectToGame = (gameId) => {
-  socket.emit('connectToGame', gameId);
+const connectToGame = (idGame) => {
+  socket.emit('connectToGame', idGame);
 };
 
 socket.emit('login', false, (status) => {
@@ -35,6 +35,7 @@ socket.emit('login', false, (status) => {
   } else {
     renderLoginHTML((nickname) => {
       socket.emit('login', nickname, (res) => {
+        console.log(res);
         if (res === false) {
           console.log('Некорректные данные!!!');
         } else {
@@ -49,6 +50,7 @@ socket.emit('login', false, (status) => {
             },
             connectToGame,
           );
+          socket.emit('list');
         }
       });
     });
@@ -62,11 +64,31 @@ socket.on('list', (data) => {
   });
 });
 
+socket.on('ships', (data) => {
+  renderMyShipsHTML(data);
+});
+
+socket.on('resGame', (data) => {
+  console.log('Результаты игры: ', data);
+});
+
 socket.on('game', (settingsGame) => {
   settings.size.grid = settingsGame.gridSize;
   settings.game.ships = settingsGame.ships;
-  console.log(settingsGame);
-  renderGameHTML(socket);
+  renderGameHTML(
+    // callbackAttackCell
+    (position, attackCell) => {
+      socket.emit('attackCell', position, (status) => {
+        attackCell(status);
+      });
+    },
+    // callbackAddShips
+    (ships, setShips) => {
+      console.log('=======>');
+      socket.emit('setShips', ships, (status) => {
+        setShips(status);
+      });
+    });
 });
 
 socket.on('errorCode', (errCode) => {
@@ -77,6 +99,10 @@ socket.on('errorCode', (errCode) => {
 
     case 3:
       console.log('Пользователь уже авторизован');
+      break;
+
+    case 4:
+      console.log('Противник потерял соединение с сервером');
       break;
 
     default:

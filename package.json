@@ -8,7 +8,7 @@
     "build": "rimraf build && webpack",
     "start": "rimraf build && webpack-dev-server -d --inline",
     "lint": "eslint --ext .js ./",
-    "server": "nodemon ./server/app"
+    "server": "nodemon ./server/server"
   },
   "repository": {
     "type": "git",

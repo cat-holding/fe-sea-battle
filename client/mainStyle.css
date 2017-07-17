@@ -1,13 +1,19 @@
+@keyframes anim-opacity {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+
 html {
   height: 100%;
 }
 
 body {
-  min-height: 100%;
-}
-
-body {
   display: flex;
+  min-height: 100%;
   font-family: 'Open Sans', sans-serif;
   justify-content: center;
   align-items: center;
@@ -31,8 +37,8 @@ body {
 }
 
 #root {
-  width: 100%;
   display: flex;
+  width: 100%;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -191,8 +197,9 @@ input:focus:-ms-input-placeholder {
   background: #bbb;
 }
 
-.ship div.deleted {
+.ship div.red {
   background: red;
+  animation: anim-opacity 1.5s infinite alternate;
 }
 
 .settings-game {
@@ -216,4 +223,23 @@ input:focus:-ms-input-placeholder {
 
 .new-game {
   margin-bottom: 15px;
+}
+
+.popup:not(:empty) {
+  position: fixed;
+  top: 0px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+  letter-spacing: 0.1em;
+  word-spacing: 0.5em;
+  color: #fff;
+  background-color: rgba(59, 59, 103, 0.8);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.popup:empty {
+  visibility: hidden;
 }

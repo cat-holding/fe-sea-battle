@@ -20,11 +20,11 @@ class EnemyMap extends Canvas {
    */
   _setCellMap(x, y, value) {
     if (!Utils.isCorrectCoordinate(x, this._gridSize)) {
-      throw new Error('Incorrect value of the variable "x"!');
+      throw new Error(`Incorrect value of the variable "x":${x}!`);
     }
 
     if (!Utils.isCorrectCoordinate(y, this._gridSize)) {
-      throw new Error('Incorrect value of the variable "y"!');
+      throw new Error(`Incorrect value of the variable "y":${y}!`);
     }
 
     if (!(value === 0 || value === 1 || value === 2)) {
@@ -82,8 +82,8 @@ class EnemyMap extends Canvas {
   setInactiveSpaceShip(startPos, endPos) {
     const startX = startPos.x - 1 < 0 ? 0 : startPos.x - 1;
     const startY = startPos.y - 1 < 0 ? 0 : startPos.y - 1;
-    const endX = endPos.x + 1 > this._gridSize ? this._gridSize : endPos.x + 1;
-    const endY = endPos.y + 1 > this._gridSize ? this._gridSize : endPos.y + 1;
+    const endX = endPos.x + 1 >= this._gridSize ? this._gridSize - 1 : endPos.x + 1;
+    const endY = endPos.y + 1 >= this._gridSize ? this._gridSize - 1 : endPos.y + 1;
 
     for (let i = startX; i <= endX; i++) {
       for (let j = startY; j <= endY; j++) {

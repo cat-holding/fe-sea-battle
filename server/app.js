@@ -370,9 +370,15 @@ const setShips = (socketId, ships) => {
   return false;
 };
 
+const getEnemy = (socketId) => {
+  const game = getGame(getIdGame(socketId));
+
+  return game.users.filter(user => user !== socketId)[0];
+};
+
 const attackCell = (socketId, pos) => {
   const game = getGame(getIdGame(socketId));
-  const enemy = game.users.filter(user => user !== socketId)[0];
+  const enemy = getEnemy(socketId);
 
   // game.ships[enemy][pos.y][pos.x]
   if (game.maps[enemy][pos.y][pos.x] === 0) {
@@ -452,7 +458,8 @@ io.on('connection', (socket) => {
   socket.on('newGame', (data, fn) => {
     if (createGame(socket.id, data)) {
       reloadList();
-      fn(true);
+      console.log(JSON.stringify(fn));
+      // fn(true);
     }
   });
 
@@ -462,9 +469,9 @@ io.on('connection', (socket) => {
 
       io.to(users[0]).to(users[1]).emit('game', getSettingsGame(gameId));
       reloadList();
-      fn(true);
+      // fn(true);
     } else {
-      fn(false);
+      // fn(false);
     }
   });
 
@@ -474,7 +481,17 @@ io.on('connection', (socket) => {
 
       if (isShipsAdded(gameId) && isCurrentUserGame(gameId, socket.id)) {
         console.log('Ячейка отакована');
-        fn(attackCell(socket.id, pos));
+        const returnCode = attackCell(socket.id, pos);
+
+        if (returnCode === 2 || typeof returnCode === 'object') {
+          const socketId = getEnemy(socket.id);
+          const ships = getGame(getIdGame(socketId)).ships[socketId];
+
+          console.log('====>', JSON.stringify(ships));
+          io.to(socketId).emit('ships', ships);
+        }
+
+        fn(returnCode);
       } else {
         console.log('Корабли не добавлены или ход противника');
       }
