@@ -35,7 +35,7 @@ describe('Utils', () => {
   });
 
   describe('#isObject()', () => {
-    it('should exist', () => {
+    it('all dependencies exist', () => {
       expect(typeof Utils.isNull).toBe('function');
     });
 
@@ -49,7 +49,7 @@ describe('Utils', () => {
   });
 
   describe('#isCorrectCoordinate()', () => {
-    it('should exist', () => {
+    it('all dependencies exist', () => {
       expect(typeof Utils.isNaturalNumberOrZero).toBe('function');
     });
 
@@ -63,7 +63,7 @@ describe('Utils', () => {
   });
 
   describe('#isCorrectCoordinates()', () => {
-    it('should exist', () => {
+    it('all dependencies exist', () => {
       expect(typeof Utils.isCorrectCoordinate).toBe('function');
     });
 
@@ -76,4 +76,46 @@ describe('Utils', () => {
     });
   });
 
+  describe('#createArray()', () => {
+    it('all dependencies exist', () => {
+      expect(typeof Utils.isNaturalNumberOrZero).toBe('function');
+    });
+
+    it('The default array will be created', () => {
+      const arr = Utils.createArray();
+
+      expect(arr).toBeArray();
+      expect(arr).toBeArrayOfSize(1);
+      expect(arr[0]).toBe(null);
+    });
+
+    it('Input variables are checked', () => {
+      expect(() => { Utils.createArray(null, 0); }).toThrowError(/.*"columns".*/);
+      expect(() => { Utils.createArray(null, -10); }).toThrowError(/.*"columns".*/);
+      expect(() => { Utils.createArray(null, 1, 0.5); }).toThrowError(/.*"lines".*/);
+    });
+
+    it('A one-dimensional array will be created', () => {
+      const arr = Utils.createArray(0, 5);
+
+      expect(arr).toBeArray();
+      expect(arr).toBeArrayOfSize(5);
+      arr.forEach((el) => {
+        expect(el).toBe(0);
+      });
+    });
+
+    it('A two-dimensional array will be created', () => {
+      const arr = Utils.createArray(7, 2, 3);
+
+      expect(arr).toBeArray();
+      expect(arr).toBeArrayOfSize(3);
+      arr.forEach((arr2) => {
+        expect(arr2).toBeArrayOfSize(2);
+        arr2.forEach((el) => {
+          expect(el).toBe(7);
+        });
+      });
+    });
+  });
 });
