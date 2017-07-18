@@ -5,16 +5,34 @@ const disconnecting = require('./../services/discon.service');
 const game = require('./../services/game.service');
 const selectGame = require('./../services/selectGame.service');
 
+let io;
+
 class GameRouter {
   constructor(http) {
-    const io = socketIo(http);
-
-    io.on('connection', this.onConnection);
+    io = socketIo(http);
+    io.on('connection', this.onConnection.bind(this));
   }
 
   onConnection(socket) {
-    this.socket = socket;
-    socket.on('login', this.onLogin);
+    const ns = { socket };
+
+    socket.on('login', this.onLogin.bind(ns));
+    socket.on('list', GameRouter.refreshList);
+    socket.on('newGame', this.onNewGame.bind(ns));
+    socket.on('connectToGame', this.onConnectToGame.bind(ns));
+    socket.on('setShips', this.onSetShips.bind(ns));
+    socket.on('attackCell', this.onAttackCell.bind(ns));
+    socket.on('disconnecting', this.onDisconnecting.bind(ns));
+  }
+
+  static refreshList(idSocket) {
+    const list = selectGame.getListGames(storage.games, storage.users);
+
+    if (typeof idSocket === 'string' && idSocket.length > 0) {
+      io.to(idSocket).emit('list', list);
+    } else {
+      io.sockets.emit('list', list);
+    }
   }
 
   onLogin(data, fn) {
@@ -25,14 +43,14 @@ class GameRouter {
   }
 
   onList() {
-    this.refreshList(this.socket.id);
+    GameRouter.refreshList(this.socket.id);
   }
 
   onNewGame(data) {
     game.createGame(this.socket.id, data, storage.games, storage.users)
       .then(
       () => {
-        this.this.();
+        GameRouter.refreshList();
       }).catch((err) => { console.log(err); });
   }
 
@@ -42,7 +60,7 @@ class GameRouter {
         const users = game.getGame(idGame, storage.games).users;
 
         io.to(users[0]).to(users[1]).emit('game', selectGame.getSettingsGame(idGame, storage.games));
-        this.this.();
+        GameRouter.refreshList();
       }, (error) => {
         console.log(error);
       });
@@ -96,7 +114,7 @@ class GameRouter {
     if (typeof user === 'string') {
       io.to(user).emit('errorCode', 4);
     } else if (user === true) {
-      this.refreshList();
+      GameRouter.refreshList();
     }
   }
 }
