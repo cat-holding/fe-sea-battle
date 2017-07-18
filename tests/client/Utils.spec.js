@@ -62,4 +62,18 @@ describe('Utils', () => {
     });
   });
 
+  describe('#isCorrectCoordinates()', () => {
+    it('should exist', () => {
+      expect(typeof Utils.isCorrectCoordinate).toBe('function');
+    });
+
+    it('Will check the coordinates', () => {
+      expect(Utils.isCorrectCoordinates(0, -1, 1)).toBeFalsy();
+      expect(Utils.isCorrectCoordinates(0, 6, -10)).toBeFalsy();
+      expect(Utils.isCorrectCoordinates(0.5, 2, -10)).toBeFalsy();
+      expect(Utils.isCorrectCoordinates(0, 0, 1)).toBeTruthy();
+      expect(Utils.isCorrectCoordinates(0, 3, 4.3)).toBeTruthy();
+    });
+  });
+
 });
