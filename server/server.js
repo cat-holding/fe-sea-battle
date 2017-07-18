@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.static(path.resolve(__dirname, './../client')));
 
-const gameRouter = new GameRouter(http);
+new GameRouter(http);
 
 http.listen(8080, () => {
   console.log('Server running on http://localhost:8080...');

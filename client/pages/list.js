@@ -26,8 +26,8 @@ const getListHTML = (arr) => {
 const addEventOnBtnPlay = (callback) => {
   const play = root.querySelectorAll('a.btn.play');
 
-  for (const btn of play) {
-    btn.addEventListener('click', (e) => {
+  Object.keys(play).forEach((key) => {
+    play[key].addEventListener('click', (e) => {
       e.preventDefault();
 
       if (typeof callback === 'function') {
@@ -36,7 +36,7 @@ const addEventOnBtnPlay = (callback) => {
 
       return false;
     });
-  }
+  });
 };
 
 export const renderListHTML = (arr, callbackNewGame, callbackPlay) => {
@@ -91,7 +91,7 @@ export const renderListHTML = (arr, callbackNewGame, callbackPlay) => {
           1: +inputs[4].value,
         },
       };
-      
+
       callbackNewGame(settingsGame);
     }
 

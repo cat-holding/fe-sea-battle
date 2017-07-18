@@ -1,4 +1,3 @@
-const Utils = require('./utils.service');
 const Game = require('./game.service');
 const Auth = require('./auth.service');
 

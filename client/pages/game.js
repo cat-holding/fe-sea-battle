@@ -112,25 +112,23 @@ const canvasClick = (myMap, enemyMap, callbackAttackCell, callbackAddShips, e) =
       } else {
         throw new Error('Incorrect value of the variable "settings.game.sizeShip"!');
       }
-    } else {
-      if (typeof callbackAttackCell === 'function') {
-        callbackAttackCell({ x: pos.x, y: pos.y }, (status) => {
-          if (status === 1) {
-            enemyMap.setInactiveCell(pos.x, pos.y);
-          } else if (status === 2) {
-            enemyMap.setInactiveCellShip(pos.x, pos.y);
-          } else if (typeof status === 'object') {
-            enemyMap.setInactiveCellShip(pos.x, pos.y);
-            enemyMap.setInactiveSpaceShip(status.start, status.end);
-          } else if (status === 0) {
-            console.log('Ячейка уже использована');
-          } else {
-            console.log('');
-          }
+    } else if (typeof callbackAttackCell === 'function') {
+      callbackAttackCell({ x: pos.x, y: pos.y }, (status) => {
+        if (status === 1) {
+          enemyMap.setInactiveCell(pos.x, pos.y);
+        } else if (status === 2) {
+          enemyMap.setInactiveCellShip(pos.x, pos.y);
+        } else if (typeof status === 'object') {
+          enemyMap.setInactiveCellShip(pos.x, pos.y);
+          enemyMap.setInactiveSpaceShip(status.start, status.end);
+        } else if (status === 0) {
+          console.log('Ячейка уже использована');
+        } else {
+          console.log('');
+        }
 
-          render(myMap, enemyMap);
-        });
-      }
+        render(myMap, enemyMap);
+      });
     }
   }
 };

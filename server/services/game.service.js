@@ -151,11 +151,13 @@ const getStateShips = (idSocket, game) => {
 };
 
 const setInactiveSpaceShip = (startPos, endPos, map) => {
-  if (!Array.isArray(map)) {
+  const _map = map;
+
+  if (!Array.isArray(_map)) {
     throw new Error('The "map" is not an Array!');
   }
 
-  const gridSize = map.length;
+  const gridSize = _map.length;
 
   if (!(Utils.isNaturalNumberOrZero(gridSize) && gridSize > 0)) {
     throw new Error('An incorrect "gridSize" variable!');
@@ -177,8 +179,8 @@ const setInactiveSpaceShip = (startPos, endPos, map) => {
 
   for (let i = startX; i <= endX; i++) {
     for (let j = startY; j <= endY; j++) {
-      if (map[j][i] === 0) {
-        map[j][i] = 1;
+      if (_map[j][i] === 0) {
+        _map[j][i] = 1;
       }
     }
   }
