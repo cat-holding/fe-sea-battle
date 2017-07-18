@@ -35,13 +35,30 @@ describe('Utils', () => {
   });
 
   describe('#isObject()', () => {
+    it('should exist', () => {
+      expect(typeof Utils.isNull).toBe('function');
+    });
+
     it('Will check the variable', () => {
       expect(Utils.isObject({})).toBeTruthy();
 
       [Infinity, -1, 0.4, '2', '-2', -2.5, NaN, undefined, '', 0, null, []].forEach((i) => {
-        expect(Utils.isNull(i)).toBeFalsy();
-        console.log(i, Utils.isNull(i));
+        expect(Utils.isObject(i)).toBeFalsy();
       });
+    });
+  });
+
+  describe('#isCorrectCoordinate()', () => {
+    it('should exist', () => {
+      expect(typeof Utils.isNaturalNumberOrZero).toBe('function');
+    });
+
+    it('Will check the variable', () => {
+      expect(Utils.isCorrectCoordinate(0, 0)).toBeFalsy();
+      expect(Utils.isCorrectCoordinate(0, -10)).toBeFalsy();
+      expect(Utils.isCorrectCoordinate(0.5, -10)).toBeFalsy();
+      expect(Utils.isCorrectCoordinate(0, 1)).toBeTruthy();
+      expect(Utils.isCorrectCoordinate(0, 4.3)).toBeTruthy();
     });
   });
 
