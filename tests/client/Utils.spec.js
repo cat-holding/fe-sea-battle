@@ -2,24 +2,47 @@ import Utils from './../../client/Utils';
 
 describe('Utils', () => {
   it('should exist', () => {
+    const funcs = [
+      Utils.isNaturalNumberOrZero,
+      Utils.isNull,
+      Utils.isCorrectCoordinate,
+      Utils.isCorrectCoordinates,
+      Utils.createArray,
+    ];
+
     expect(Utils).toBeDefined();
-    expect(typeof (Utils.isNaturalNumberOrZero)).toBe('function');
-    expect(typeof (Utils.isNull)).toBe('function');
-    expect(typeof (Utils.isCorrectCoordinate)).toBe('function');
-    expect(typeof (Utils.isCorrectCoordinates)).toBe('function');
-    expect(typeof (Utils.createArray)).toBe('function');
+    expect(funcs.map(el => typeof el === 'function')).not.toContain(false);
   });
 
   describe('#isNaturalNumberOrZero()', () => {
     it('Will check the variable', () => {
-      expect(Utils.isNaturalNumberOrZero(0)).toBeTruthy();
-      expect(Utils.isNaturalNumberOrZero(1)).toBeTruthy();
-      expect(Utils.isNaturalNumberOrZero(Infinity)).toBeFalsy();
-      expect(Utils.isNaturalNumberOrZero(-1)).toBeFalsy();
-      expect(Utils.isNaturalNumberOrZero(0.4)).toBeFalsy();
-      expect(Utils.isNaturalNumberOrZero('2')).toBeFalsy();
-      expect(Utils.isNaturalNumberOrZero('-2')).toBeFalsy();
-      expect(Utils.isNaturalNumberOrZero(-2.5)).toBeFalsy();
+      [0, 1].forEach((i) => {
+        expect(Utils.isNaturalNumberOrZero(i)).toBeTruthy();
+      });
+      [Infinity, -1, 0.4, '2', '-2', -2.5, null, NaN, undefined].forEach((i) => {
+        expect(Utils.isNaturalNumberOrZero(i)).toBeFalsy();
+      });
     });
   });
+
+  describe('#isNull()', () => {
+    it('Will check the variable', () => {
+      expect(Utils.isNull(null)).toBeTruthy();
+      [Infinity, -1, 0.4, '2', '-2', -2.5, NaN, undefined, '', 0].forEach((i) => {
+        expect(Utils.isNull(i)).toBeFalsy();
+      });
+    });
+  });
+
+  describe('#isObject()', () => {
+    it('Will check the variable', () => {
+      expect(Utils.isObject({})).toBeTruthy();
+
+      [Infinity, -1, 0.4, '2', '-2', -2.5, NaN, undefined, '', 0, null, []].forEach((i) => {
+        expect(Utils.isNull(i)).toBeFalsy();
+        console.log(i, Utils.isNull(i));
+      });
+    });
+  });
+
 });

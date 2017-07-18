@@ -3,9 +3,13 @@ const webpackConfig = require('./webpack.config');
 module.exports = (config) => {
   const configuration = {
     basePath: '',
-    frameworks: ['jasmine'],
+    frameworks: [
+      'jasmine',
+      'jasmine-matchers',
+    ],
     plugins: [
       'karma-jasmine',
+      'karma-jasmine-matchers',
       'karma-webpack',
       'karma-chrome-launcher',
       'karma-sourcemap-loader',
