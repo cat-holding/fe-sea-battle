@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const ENV = process.env.npm_lifecycle_event;
 const config = {
   entry: {
     client: './client/app',
@@ -41,5 +42,14 @@ const config = {
   })],
   devtool: 'eval-source-map',
 };
+
+if (ENV === 'test' || ENV === 'test-watch') {
+  config.entry = undefined;
+  config.output = {};
+  config.devtool = 'eval-source-map';
+  config.plugins = [];
+} else if (ENV === 'build') {
+  config.devtool = 'inline-source-map';
+}
 
 module.exports = config;
