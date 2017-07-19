@@ -15,6 +15,8 @@ module.exports = (config) => {
       'karma-sourcemap-loader',
       'karma-babel-preprocessor',
       'karma-spec-reporter',
+      'karma-coverage',
+      'karma-coveralls',
     ],
     files: [
       './tests/**/*.spec.js',
@@ -29,7 +31,11 @@ module.exports = (config) => {
         sourceMap: 'inline',
       },
     },
-    reporters: ['spec'],
+    reporters: ['spec', 'coverage', 'coveralls'],
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/',
+    },
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
