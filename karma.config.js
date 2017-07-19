@@ -23,7 +23,7 @@ module.exports = (config) => {
     ],
     exclude: [],
     preprocessors: {
-      './tests/**/*.js': ['webpack', 'sourcemap'],
+      './tests/**/*.js': ['webpack','coverage', 'sourcemap'],
     },
     babelPreprocessor: {
       options: {
@@ -31,7 +31,7 @@ module.exports = (config) => {
         sourceMap: 'inline',
       },
     },
-    reporters: ['spec', 'coverage', 'coveralls'],
+    reporters: ['coverage', 'coveralls'],
     coverageReporter: {
       type: 'lcov',
       dir: 'coverage/',
