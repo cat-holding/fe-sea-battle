@@ -41,7 +41,7 @@ module.exports = (config) => {
         flags: ['--no-sandbox'],
       },
     },
-    singleRun: false,
+    singleRun: true,
     concurrency: Infinity,
     webpack: webpackConfig,
     webpackMiddleware: {

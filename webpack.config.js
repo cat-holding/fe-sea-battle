@@ -44,7 +44,7 @@ const config = {
 };
 
 if (ENV === 'test' || ENV === 'test-watch') {
-  config.entry = undefined;
+  config.entry = void 0;
   config.output = {};
   config.devtool = 'eval-source-map';
   config.plugins = [];
