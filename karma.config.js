@@ -45,7 +45,7 @@ module.exports = (config) => {
     concurrency: Infinity,
     webpack: webpackConfig,
     webpackMiddleware: {
-      // noInfo: true,
+      noInfo: true,
     },
   };
 
