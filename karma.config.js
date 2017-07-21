@@ -23,7 +23,7 @@ module.exports = (config) => {
     ],
     exclude: [],
     preprocessors: {
-      './tests/**/*.js': ['webpack','coverage', 'sourcemap'],
+      './tests/**/*.js': ['webpack', 'coverage', 'sourcemap'],
     },
     babelPreprocessor: {
       options: {

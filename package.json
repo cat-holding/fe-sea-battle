@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "karma start karma.config.js",
+    "start": "node ./server/server.js",
+    "start:dev": "rimraf build && webpack-dev-server -d --inline",
     "build": "rimraf build && webpack",
-    "start": "rimraf build && webpack-dev-server -d --inline",
-    "lint": "eslint --ext .js ./",
-    "server": "nodemon ./server/server"
+    "lint": "eslint --ext .js ./ --ignore-path .gitignore",
+    "server": "nodemon ./server/server",
+    "postinstall": "webpack"
   },
   "repository": {
     "type": "git",
@@ -54,5 +56,9 @@
     "socket.io-client": "2.0.3",
     "webpack": "3.0.0",
     "webpack-dev-middleware": "1.11.0"
+  },
+  "engines": {
+    "node": "6.2",
+    "npm": "3.3"
   }
 }
