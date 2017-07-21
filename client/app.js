@@ -6,6 +6,7 @@ import { renderGameHTML, renderMyShipsHTML } from './pages/game';
 
 import { VERTICAL, HORIZONTAL, settings } from './storage';
 
+import './mainStyle.css';
 
 document.addEventListener('keydown', (e) => {
   console.log(e.keyCode);
@@ -24,7 +25,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-const socket = io('http://localhost:8080');
+const socket = io();
 const connectToGame = (idGame) => {
   socket.emit('connectToGame', idGame);
 };

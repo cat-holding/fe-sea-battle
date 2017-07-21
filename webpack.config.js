@@ -26,6 +26,16 @@ const config = {
           presets: ['es2015'],
         },
       },
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+        ],
+      },
+    ],
+    loaders: [
+      { test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/, loader: 'file' },
     ],
   },
   resolve: {
