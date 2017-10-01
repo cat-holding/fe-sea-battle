@@ -124,7 +124,7 @@ const canvasClick = (myMap, enemyMap, callbackAttackCell, callbackAddShips, e) =
         } else if (status === 0) {
           alert('Ячейка уже использована');
         } else {
-          alert('Ожидаем хода противника!');
+          console.log('');
         }
 
         render(myMap, enemyMap);
