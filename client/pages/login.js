@@ -12,10 +12,10 @@ export const renderLoginHTML = (callback) => {
       </li>
     </ul>`;
 
-  const button = root.querySelector('button.btn.reg_btn');
+  const form = root.querySelector('#root > ul > li > form');
   const input = root.querySelector('input[name=login]');
 
-  button.addEventListener('click', (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     if (typeof callback === 'function') {
