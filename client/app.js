@@ -85,10 +85,10 @@ socket.on('game', (settingsGame) => {
     },
     // callbackAddShips
     (ships, setShips) => {
-      console.log('=======>');
       socket.emit('setShips', ships, (status) => {
         setShips(status);
       });
+      alert('Ожидаем противника!');
     });
 });
 
@@ -103,7 +103,8 @@ socket.on('errorCode', (errCode) => {
       break;
 
     case 4:
-      console.log('Противник потерял соединение с сервером');
+      alert('Противник потерял соединение с сервером');
+      window.location.reload(); // eslint-disable-line
       break;
 
     default:

@@ -122,7 +122,7 @@ const canvasClick = (myMap, enemyMap, callbackAttackCell, callbackAddShips, e) =
           enemyMap.setInactiveCellShip(pos.x, pos.y);
           enemyMap.setInactiveSpaceShip(status.start, status.end);
         } else if (status === 0) {
-          console.log('Ячейка уже использована');
+          alert('Ячейка уже использована');
         } else {
           console.log('');
         }
